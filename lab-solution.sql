@@ -9,11 +9,11 @@ JOIN sakila.country as co
 ON c.country_id = co.country_id;
 
 -- 2.Write a query to display how much business, in dollars, each store brought in.
-SELECT sto.store_id,co.country,sum(p.amount),
+SELECT sto.store_id,co.country,sum(p.amount) as total_amount,
   case co.country
       when 'Canada' then sum(p.amount*0.78)
         when 'Australia' then sum(p.amount*0.7)
-  end as amount_doller
+  end as amount_dollar
 -- IF(co.country = 'Canada', sum(amount*0.78), sum(amount * 0.7) ,this is just another way trying but failed.
 FROM sakila.payment as p
 JOIN sakila.staff as sta
@@ -74,6 +74,7 @@ WHERE i.store_id = 1 and f.title = 'Academy Dinosaur';
 -- Yes,because all the film gave been returned.
 
 -- 7.Get all pairs of actors that worked together.
+USE sakila;
 SELECT f.title, A.actor_id AS actor1, B.actor_id AS actor2
 FROM film_actor AS A, film_actor AS B
 JOIN film AS f
@@ -89,7 +90,7 @@ ORDER BY A.film_id;
 
 
 -- 9.For each film, list actor that has acted in more films.
-SELECT a.last_name,a.first_name,count(fa.actor_id) FROM actor AS a
+SELECT a.last_name,a.first_name,count(fa.actor_id) AS act_time FROM actor AS a
 JOIN film_actor AS fa
 ON a.actor_id = fa.actor_id
 JOIN film as f
